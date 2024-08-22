@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 // Default route to check if the server is running
 app.get('/', (req, res) => {
-  res.status(200).send('Server is up and running!');
+  res.send('<h1>Server is up and running!</h1>');
 });
 
 // API endpoint to send a push notification
