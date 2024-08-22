@@ -6,6 +6,11 @@ const { sendPushNotification } = require('./sendNotification');
 const app = express();
 app.use(bodyParser.json());
 
+// Default route to check if the server is running
+app.get('/', (req, res) => {
+  res.status(200).send('Server is up and running!');
+});
+
 // API endpoint to send a push notification
 app.post('/send-notification', (req, res) => {
   const { token, title, body, data } = req.body;

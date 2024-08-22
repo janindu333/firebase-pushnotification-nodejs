@@ -1,19 +1,23 @@
-// sendNotification.js
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json'); // Replace with your actual path
+
+const serviceAccount = {
+  "type": process.env.FIREBASE_TYPE,
+  "project_id": process.env.FIREBASE_PROJECT_ID,
+  "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
+  "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), // to handle newline characters in Vercel env vars
+  "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+  "client_id": process.env.FIREBASE_CLIENT_ID,
+  "auth_uri": process.env.FIREBASE_AUTH_URI,
+  "token_uri": process.env.FIREBASE_TOKEN_URI,
+  "auth_provider_x509_cert_url": process.env.FIREBASE_AUTH_PROVIDER_CERT_URL,
+  "client_x509_cert_url": process.env.FIREBASE_CLIENT_CERT_URL
+};
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-/**
- * Sends a push notification to a specific device.
- * @param {string} token - The FCM token of the device to send the notification to.
- * @param {string} title - The title of the notification.
- * @param {string} body - The body of the notification.
- * @param {object} data - Optional additional data to send with the notification.
- */
 function sendPushNotification(token, title, body, data = {}) {
   const message = {
     notification: {
