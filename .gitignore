@@ -26,3 +26,5 @@ jspm_packages/
 # IDE or Editor directories
 .vscode/
 .idea/
+
+serviceAccountKey.json
